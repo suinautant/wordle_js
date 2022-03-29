@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WORDLE</title>
+  </head>
+  <body>
+    <style>
+      input,
+      button {
+        width: 50px;
+        height: 50px;
+        margin: 2px;
+      }
+    </style>
+    <input type="text" class="box" />
+    <input type="text" class="box" />
+    <input type="text" class="box" />
+    <input type="text" class="box" />
+    <input type="text" class="box" />
+    <button>제출</button>
+
+    <script>
+      const question = 'happy';
+
+      // 버튼 클릭하면 정답과 비교
+      document.querySelector('button').addEventListener('click', () => {
+        const answer = document.querySelectorAll('.box');
+        var answerValue = '';
+
+        // 글자 비교해 배경색상 변경
+        // 위치와 글자 맞으면 주황
+        // 위치 틀리고 글자 맞으면 노랑
+        // 포함된 글자 아니면 회색
+        for (let i = 0; i < answer.length; i++) {
+          if (answer[i].value === question[i]) {
+            color = 'coral';
+          } else if (question.includes(answer[i].value)) {
+            color = 'yellow';
+          } else {
+            color = 'gainsboro';
+          }
+          answer[i].style.backgroundColor = color;
+          answer[i].classList.remove('box');
+          answerValue += answer[i].value;
+        }
+
+        if (question === answerValue) {
+          alert('축하합니다!!!');
+        } else {
+          var htmlAddBox = `
+          <br />
+          <input type="text" class="box" />
+          <input type="text" class="box" />
+          <input type="text" class="box" />
+          <input type="text" class="box" />
+          <input type="text" class="box" />
+          `;
+          document.querySelector('body').insertAdjacentHTML('beforeend', htmlAddBox);
+        }
+      });
+    </script>
+  </body>
+</html>
